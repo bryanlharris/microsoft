@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Classes\*\shell\OpenInWord]
+@="Open in Word"
+
+[HKEY_CURRENT_USER\Software\Classes\*\shell\OpenInWord\command]
+@="powershell.exe -ExecutionPolicy Bypass -File \"C:\\microsoft\\open-in-word.ps1\" \"%1\""
