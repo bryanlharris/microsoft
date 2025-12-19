@@ -28,9 +28,12 @@ if (Test-Path $progIdPath) {
 foreach ($extension in $wordExtensions) {
     $extensionPath = "$classesRoot\$extension"
     if (Test-Path $extensionPath) {
-        $defaultProgId = Get-ItemPropertyValue -Path $extensionPath -Name "(default)" -ErrorAction SilentlyContinue
-        if ($defaultProgId -eq $progId) {
-            Remove-ItemProperty -Path $extensionPath -Name "(default)" -ErrorAction SilentlyContinue | Out-Null
+        $extensionProps = Get-ItemProperty -Path $extensionPath -ErrorAction SilentlyContinue
+        if ($null -ne $extensionProps -and $extensionProps.PSObject.Properties.Name -contains "(default)") {
+            $defaultProgId = $extensionProps."(default)"
+            if ($defaultProgId -eq $progId) {
+                Remove-ItemProperty -Path $extensionPath -Name "(default)" -ErrorAction SilentlyContinue | Out-Null
+            }
         }
 
         $extensionProgIdPath = "$extensionPath\$progId"
