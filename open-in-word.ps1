@@ -2,7 +2,8 @@ param(
     [string]$File
 )
 
-$word = New-Object -ComObject Word.Application
-$word.Visible = $true
-$word.Documents.Add() | Out-Null
+Start-Process winword.exe
+Start-Sleep -Milliseconds 300
+
+$word = [Runtime.InteropServices.Marshal]::GetActiveObject("Word.Application")
 $word.Documents.Open($File) | Out-Null
